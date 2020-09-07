@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Title</title>
+</head>
+<body>
+<div
+    style="width: 320px;height: 320px"
+>
+<input type="file" id="file-input" name="fileContent">
+</div>
+</body>
+<script>
+const open = () => {
+var fileInput = document.querySelector('#file-input');
+fileInput.onchange = function(){
+  console.log('文件名:',this.value)
+  var formData = new FormData(this.form);
+  console.log(formData)
+}
+}
+{# +async sendRequest(forms, max=4) {
++  return new Promise(resolve => {
++    const len = forms.length;
++    let idx = 0;
++    let counter = 0;
++    const start = async ()=> {
++      // 有请求，有通道
++      while (idx < len && max > 0) {
++        max--; // 占用通道
++        console.log(idx, "start");
++        const form = forms[idx].form;
++        const index = forms[idx].index;
++        idx++
++        request({
++          url: '/upload',
++          data: form,
++          onProgress: this.createProgresshandler(this.chunks[index]),
++          requestList: this.requestList
++        }).then(() => {
++          max++; // 释放通道
++          counter++;
++          if (counter === len) {
++            resolve();
++          } else {
++            start();
++          }
++        });
++      }
++    }
++    start();
++  });
++} #}
+
+</script>
+</html>
