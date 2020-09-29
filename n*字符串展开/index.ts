@@ -19,7 +19,7 @@ let fn = (str) => {
         if(str[i] === ']') {
             leftAr = leftAr - 1;
             if(leftAr === 0) {
-                ans += add(nextStr, numCount);
+                ans += fn(add(nextStr, numCount));
                 nextStr = '';
                 numCount = 0;
             }
@@ -41,7 +41,7 @@ let fn = (str) => {
             leftAr = leftAr + 1;
         }
     }
-    if(ans.includes('[')) return fn(ans);
+    
     return ans;
 }
-console.log(fn(c));
+console.log(fn(b));
