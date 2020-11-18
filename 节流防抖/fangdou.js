@@ -8,3 +8,4 @@ const debounce = (fn, time=300) => {
         }, time)
     }
 };
+  
