@@ -1,52 +1,46 @@
-// sum(1)(2)(3);
+// 基本实现
+function fn() {
+    let arr = Array.from(arguments);
 
-const s = (a) => {
-    if('没有函数调用') return a;
-    return (b) => {
-        return s(a + b);
+    const x = function() {
+        arr = arr.concat(Array.from(arguments))
+        return fn(arr.reduce((sum, cur) => sum + cur), 0);
     }
+    x.valueOf = () => {
+        return arguments[0];
+    }
+
+    return x;
 }
 
-function sum(a){
-    let temp = function(b){
-        return sum(a+b)
-    }
-    // temp.toString这里写成temp.valueOf也可以
-    temp.toString = function(){
-        return a
-    }
-    return temp
+console.log(+fn(1)(2)(3))
+
+// my科利华
+// 先实现一个add
+function add (...arg){
+    return arg.reduce((sum, cur) => sum+cur, 0);
 }
 
-console.log(sum(1)(2).toString(), +sum(1)(2))
+function curry(fn) {
 
+    let tmp = function() {
+        let arg = Array.from(arguments);
+        let x = function() {
+            arg = arg.concat(Array.from(arguments));
 
-let curSum = function() {
-    let args = [].slice.apply(arguments);
+            return tmp(fn(...arg));
+        }
+        x.toString = () => {
+            return arguments[0]
+        }
+        return x;
+    };
 
-    let fn = function() {
-        let last = arguments[arguments.length - 1];
-        let args_2 = [].slice.apply(arguments);
-        args = args.concat(args_2);
-        return fn
-    }
-
-    return fn
+    return tmp
 };
 
-function curry (fn) {
-    const finalLen = fn.length
-    let args = [].slice.call(this,1)
-    console.log(fn)
-    return function currying () {
-      args = args.concat(Array.from(arguments))
-      const len = args.length
-      console.log(args);
-      return len >= fn.length ? fn.apply(this, args) : currying
-    }
-  }
-  function add (a,b,c) {
-    return a+b+c
-  }
-  const add1 = curry(add)
-  console.log(add1(1, 2)(3))
+const curryAdd = curry(add);
+
+console.log(curryAdd(1,2)(3).toString())
+
+// baidu上
