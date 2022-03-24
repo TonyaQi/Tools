@@ -20,3 +20,24 @@ class EventEmitter {
         }
     }
 }
+
+
+class Emitter {
+    entities = {};
+
+    on = (key, fun) => {
+        if(this.entities[key]) {
+            this.entities[key].push(fun);
+        } else {
+            this.entities[key] = [fun];
+        }
+    }
+
+    emit = (key, args) => {
+        if(key in this.entities) {
+            this.entities[key].forEach(item => {
+                item.apply(this, args)
+            })
+        }
+    }
+}

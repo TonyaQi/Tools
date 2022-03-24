@@ -53,5 +53,5 @@ myPromise.prototype.then = function(onFufilled, onReject) {
     return thenPromise;
 };
 
-new myPromise((res, rej) => {resolve(123)}).then(() => {}, () => {});
-new myPromise((re, rj) => {re(1)}).then(() => {})
+new myPromise((resolve, rej) => {resolve(123)}).then((e) => {console.log(e)}, () => {});
+new myPromise((re, rj) => {re(1)}).then((e) => {console.log(e); return 1}).then(v => console.log(v));
