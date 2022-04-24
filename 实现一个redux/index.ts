@@ -30,6 +30,7 @@ const createStore = (reducers, middle) => {
     }
 }
 
+// 用于合并reducer
 const combineReducers = (reducers) => {
     return function newReducer (state, action) {
         let nextStates = {};

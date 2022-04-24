@@ -37,6 +37,19 @@ Function.prototype.myBind = function(ctx, ...arg) {
     }
 };
 
+Function.prototype.myBind = function(ctx, ...oldArg) {
+    const _this = this;
+    return function(...arg) {
+        _this.call(ctx, ...arg, ...oldArg)
+    }
+}
+var obj = {
+    a: 3
+}
+function b () {console.log(this.a)};
+let c = b.myBind(obj);
+c();
+
 const obj = {a:1}
 const x = function(b) {
     console.log(this.a);
@@ -58,8 +71,8 @@ Function.prototype.myBind = function(ctx, ...arg) {
 
 const obj = {a:1}
 const x = function(b) {
+    console.log(this);
     console.log(this.a);
-    console.log(b);
 }.myBind(obj, 2);
 console.log(x());
 

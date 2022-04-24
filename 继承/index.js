@@ -15,13 +15,15 @@
 //es5 继承
 const parent = () => {
     // some
+    this.a = a;
 }
 
 const child = () => {
+    // 为了绑定parent的this
     parent.call(this);
 }
 
-child.prototype = new Parent()
+child.prototype = new parent()
 child.prototype.constructor = child;// 将实例的原型上的构造函数指定为当前子类的构造函数 (因为上一步丢了)
 
 // es6
